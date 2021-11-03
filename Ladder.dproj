@@ -569,6 +569,7 @@
                 </DeployFile>
                 <DeployFile LocalName="base.db" Configuration="Debug" Class="File">
                     <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
                         <RemoteName>base.db</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
@@ -581,6 +582,7 @@
                 </DeployFile>
                 <DeployFile LocalName="base.db" Configuration="Release" Class="File">
                     <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\</RemoteDir>
                         <RemoteName>base.db</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
