@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.772,=D:\Delphi\Android\Ladders\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.584,=D:\Delphi\Android\Ladders\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.621,D:\Delphi\Android\Ladders\Unit1.pas=D:\Delphi\Android\Ladders\uLibrary.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.323,=D:\Delphi\Android\Ladders\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.844,D:\Delphi\Android\Ladders\Unit1.fmx=D:\Delphi\Android\Ladders\uFrameVisual.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.433,D:\Delphi\Android\Ladders\Ladder.dproj=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.168,=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.583,=D:\Delphi\Android\Ladders\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.667,D:\Delphi\Android\Ladders\Main.pas=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.667,D:\Delphi\Android\Ladders\Main.fmx=C:\Users\Alex\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.327,D:\Delphi\Android\Ladders\uFrameProjects.pas=D:\Delphi\Android\Ladders\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.027,D:\Delphi\Android\Ladders\Unit1.pas=D:\Delphi\Android\Ladders\uLadderLine.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.844,D:\Delphi\Android\Ladders\Unit1.pas=D:\Delphi\Android\Ladders\uFrameVisual.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.328,D:\Delphi\Android\Ladders\uFrameProjects.fmx=D:\Delphi\Android\Ladders\Unit1.fmx</Transaction>
+    <Transaction>2021.11.03 16:40:35.091,=D:\Delphi\Android\Ladders\Unit1.pas</Transaction>
+    <Transaction>2021.11.03 21:22:42.035,D:\Delphi\Android\Ladders\uFrameStartProject.fmx=D:\Delphi\Android\Ladders\Unit1.fmx</Transaction>
+    <Transaction>2021.11.03 21:22:42.035,D:\Delphi\Android\Ladders\uFrameStartProject.pas=D:\Delphi\Android\Ladders\Unit1.pas</Transaction>
+    <Transaction>2021.11.03 22:18:25.969,=D:\Delphi\Android\Ladders\Unit1.pas</Transaction>
+    <Transaction>2021.11.03 22:37:37.940,D:\Delphi\Android\Ladders\uFrameNewProject.pas=D:\Delphi\Android\Ladders\Unit1.pas</Transaction>
+    <Transaction>2021.11.03 22:37:37.940,D:\Delphi\Android\Ladders\uFrameNewProject.fmx=D:\Delphi\Android\Ladders\Unit1.fmx</Transaction>
+    <Transaction>2021.11.03 23:15:54.365,=D:\Delphi\Android\Ladders\Unit1.pas</Transaction>
+    <Transaction>2021.11.03 23:16:56.895,D:\Delphi\Android\Ladders\uFrameInputData.pas=D:\Delphi\Android\Ladders\Unit1.pas</Transaction>
+    <Transaction>2021.11.03 23:16:56.895,D:\Delphi\Android\Ladders\uFrameInputData.fmx=D:\Delphi\Android\Ladders\Unit1.fmx</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile Android64="PFGQ896L89GICQFE"/>
+	</ActiveMobileDevice>
+</BorlandProject>

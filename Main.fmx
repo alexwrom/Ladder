@@ -1,0 +1,50 @@
+object MainForm: TMainForm
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 612
+  ClientWidth = 385
+  Fill.Kind = Gradient
+  Fill.Gradient.Points = <
+    item
+      Color = xFFBAE0BF
+      Offset = 0.000000000000000000
+    end
+    item
+      Color = xFFA8DDFE
+      Offset = 1.000000000000000000
+    end>
+  Fill.Gradient.StartPosition.X = 0.500000000000000000
+  Fill.Gradient.StartPosition.Y = 1.000000000000000000
+  Fill.Gradient.StopPosition.X = 0.499999970197677600
+  Fill.Gradient.StopPosition.Y = 0.000000000000000000
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 3
+  object MultiView: TMultiView
+    BorderOptions.Color = claSkyblue
+    Mode = Drawer
+    Size.Width = 250.000000000000000000
+    Size.Height = 612.000000000000000000
+    Size.PlatformDefault = False
+    Visible = False
+    TabOrder = 1
+    object SpeedButton1: TSpeedButton
+      Align = Bottom
+      Position.Y = 564.000000000000000000
+      Size.Width = 250.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'SpeedButton1'
+    end
+  end
+  object Conn: TFDConnection
+    Params.Strings = (
+      'DriverID=SQLite')
+    LoginPrompt = False
+    Left = 176
+    Top = 296
+  end
+end

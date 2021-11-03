@@ -1,0 +1,108 @@
+object frameInputData: TframeInputData
+  Align = Client
+  Size.Width = 360.000000000000000000
+  Size.Height = 524.000000000000000000
+  Size.PlatformDefault = False
+  object ToolBar: TToolBar
+    Size.Width = 360.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    TintColor = claSkyblue
+    object ShadowEffect1: TShadowEffect
+      Distance = 3.000000000000000000
+      Direction = 45.000000000000000000
+      Softness = 0.300000011920929000
+      Opacity = 0.600000023841857900
+      ShadowColor = claBlack
+    end
+    object Label2: TLabel
+      Align = Contents
+      StyledSettings = [Family, Style, FontColor]
+      Margins.Left = 48.000000000000000000
+      Margins.Right = 48.000000000000000000
+      Size.Width = 264.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 13.000000000000000000
+      TextSettings.HorzAlign = Center
+      Text = 'Input data'
+      TabOrder = 1
+    end
+    object btnBack: TSpeedButton
+      Align = Left
+      IconTintColor = claSteelblue
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'drawertoolbutton'
+      Text = 'btnBack'
+    end
+  end
+  object vertScroll: TVertScrollBox
+    Align = Client
+    Padding.Left = 5.000000000000000000
+    Padding.Top = 5.000000000000000000
+    Padding.Right = 5.000000000000000000
+    Padding.Bottom = 5.000000000000000000
+    Size.Width = 360.000000000000000000
+    Size.Height = 426.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    ShowSizeGrip = True
+    Viewport.Width = 360.000000000000000000
+    Viewport.Height = 426.000000000000000000
+  end
+  object Layout2: TLayout
+    Align = Bottom
+    Position.Y = 474.000000000000000000
+    Size.Width = 360.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object GridPanelLayout1: TGridPanelLayout
+      Align = Client
+      Size.Width = 360.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      ColumnCollection = <
+        item
+          Value = 50.000000000000000000
+        end
+        item
+          Value = 50.000000000000000000
+        end>
+      ControlCollection = <
+        item
+          Column = 1
+          Control = btnNext
+          Row = 0
+        end
+        item
+          Column = 0
+          Control = btnCancel
+          Row = 0
+        end>
+      RowCollection = <
+        item
+          Value = 100.000000000000000000
+        end>
+      object btnNext: TSpeedButton
+        Align = Client
+        Size.Width = 180.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        Text = 'Next'
+      end
+      object btnCancel: TSpeedButton
+        Align = Client
+        Anchors = []
+        Size.Width = 180.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        Text = 'Cancel'
+      end
+    end
+  end
+end
