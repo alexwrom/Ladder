@@ -7,7 +7,7 @@ object frameInputData: TframeInputData
     Size.Width = 360.000000000000000000
     Size.Height = 48.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 4
+    TabOrder = 2
     TintColor = claSkyblue
     object ShadowEffect1: TShadowEffect
       Distance = 3.000000000000000000
@@ -48,7 +48,7 @@ object frameInputData: TframeInputData
     Size.Width = 360.000000000000000000
     Size.Height = 426.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 5
+    TabOrder = 3
     ShowSizeGrip = True
     Viewport.Width = 360.000000000000000000
     Viewport.Height = 426.000000000000000000
@@ -94,6 +94,7 @@ object frameInputData: TframeInputData
         Size.Height = 50.000000000000000000
         Size.PlatformDefault = False
         Text = 'Next'
+        OnClick = btnNextClick
       end
       object btnCancel: TSpeedButton
         Align = Client

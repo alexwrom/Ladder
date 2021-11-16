@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Effects, FMX.Controls.Presentation, FMX.Objects, FMX.Layouts,uFrameVisual;
+  FMX.Effects, FMX.Controls.Presentation, FMX.Objects, FMX.Layouts,uFrameVisual,uLibrary;
 
 type
   TFrameStartProject = class(TFrame)
@@ -42,6 +42,7 @@ begin
    MainForm.frameVisual := TframeVisual.Create(MainForm);
    MainForm.frameVisual.Parent := MainForm;
    MainForm.frameVisual.CreateLadder;
+   MyFreeAndNil(MainForm.frameStartProject);
 end;
 
 end.

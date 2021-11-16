@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
   FMX.Controls.Presentation, FMX.Layouts, System.ImageList, FMX.ImgList, FMX.Objects,
-  FMX.Effects, FMX.Gestures, FMX.Ani, uFrameStartProject, uFrameNewProject;
+  FMX.Effects, FMX.Gestures, FMX.Ani, uFrameStartProject, uFrameNewProject, uLibrary;
 
 type
   TframeProjects = class(TFrame)
@@ -15,7 +15,7 @@ type
     GridLayout: TGridLayout;
     Layout1: TLayout;
     Label1: TLabel;
-    CornerButton1: TCornerButton;
+    btnNewProject: TCornerButton;
     imgOk: TImageList;
     ToolBar: TToolBar;
     ShadowEffect1: TShadowEffect;
@@ -34,9 +34,9 @@ type
     procedure OnLongTap(Sender: TObject; const EventInfo: TGestureEventInfo; var Handled: Boolean);
     procedure btnMenuCloseClick(Sender: TObject);
     procedure animMenuEditDelFinish(Sender: TObject);
-    procedure CornerButton1Click(Sender: TObject);
+    procedure btnNewProjectClick(Sender: TObject);
   private
-    procedure CreateNewProjectElement(nameProject: string; TypeIndex: integer);
+    procedure CreateNewProjectElement(nameProject: string; ID, TypeIndex: integer; IsCalc, IsReport: integer);
     procedure OnSelProject(Sender: TObject);
 
     { Private declarations }
@@ -51,7 +51,7 @@ uses Main;
 
 {$R *.fmx}
 
-procedure TframeProjects.CreateNewProjectElement(nameProject: string; TypeIndex: integer);
+procedure TframeProjects.CreateNewProjectElement(nameProject: string; ID, TypeIndex: integer; IsCalc, IsReport: integer);
 var
   tmpLay: TLayout;
   tmpBtn: TCornerButton;
@@ -103,7 +103,9 @@ begin
     Margins.Right := 2;
     Touch.GestureManager := GestureManager;
     Touch.InteractiveGestures := [TInteractiveGesture.LongTap];
-    Tag := TypeIndex;
+    Tag := ID;
+    ParentShowHint := false;
+    Hint:= TypeIndex.ToString;
     OnGesture := OnLongTap;
     OnClick := OnSelProject;
   end;
@@ -124,7 +126,7 @@ begin
   begin
     Parent := tmpLay;
     WrapMode := TImageWrapMode(2);
-    MultiResBiTmap[0].BitMap.Assign(imgOk.Source[1].MultiResBiTmap[0].BitMap);
+    MultiResBiTmap[0].BitMap.Assign(imgOk.Source[IsCalc].MultiResBiTmap[0].BitMap);
     Align := TAlignLayout(3);
     Width := 20;
     Margins.Top := 2;
@@ -138,7 +140,7 @@ begin
   begin
     Parent := tmpLay;
     WrapMode := TImageWrapMode(2);
-    MultiResBiTmap[0].BitMap.Assign(imgOk.Source[0].MultiResBiTmap[0].BitMap);
+    MultiResBiTmap[0].BitMap.Assign(imgOk.Source[IsReport].MultiResBiTmap[0].BitMap);
     Align := TAlignLayout(3);
     Width := 20;
     Margins.Top := 2;
@@ -180,10 +182,10 @@ begin
   if NOT btnMenuClose.Visible then
   begin
     MainForm.Project.ID := (Sender as TCornerButton).Tag;
+    MainForm.Project.typeLadder := (Sender as TCornerButton).Hint.ToInteger;
     MainForm.frameStartProject := TFrameStartProject.Create(MainForm);
     MainForm.frameStartProject.Parent := MainForm;
-    MainForm.frameProjects.Parent := nil;
-    MainForm.frameProjects.Free;
+    MyFreeAndNil(MainForm.frameProjects);
   end;
 end;
 
@@ -194,20 +196,25 @@ begin
   animMenuEditDel.Start;
 end;
 
-procedure TframeProjects.CornerButton1Click(Sender: TObject);
+procedure TframeProjects.btnNewProjectClick(Sender: TObject);
 begin
   MainForm.frameNewProject := TFrameNewProject.Create(MainForm);
   MainForm.frameNewProject.Parent := MainForm;
-  MainForm.frameProjects.Parent := nil;
-  MainForm.frameProjects.Free;
+  MyFreeAndNil(MainForm.frameProjects);
 end;
 
 constructor TframeProjects.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  CreateNewProjectElement('В подвал №1', 0);
-  CreateNewProjectElement('В подвал №2', 1);
-  CreateNewProjectElement('В подвал №3', 2);
+  ExeActive('select * from projects;');
+  tmpQuery.First;
+  while NOT tmpQuery.Eof do
+    with tmpQuery do
+    begin
+      CreateNewProjectElement(FieldByName('project_name').AsString, FieldByName('project_id').AsInteger, FieldByName('project_type').AsInteger, FieldByName('is_calc').AsInteger, FieldByName('is_visual').AsInteger);
+      Next;
+    end;
+  MyFreeAndNil(tmpQuery);
 end;
 
 end.

@@ -8,7 +8,7 @@ uses
   FMX.Effects, FMX.Controls.Presentation, FMX.Viewport3D, uLadderLine,
   System.Math.Vectors, FMX.Controls3D, FMX.Objects3D, FMX.Types3D,
   FMX.MaterialSources, uLibrary, System.ImageList, FMX.ImgList, FMX.Layouts,
-  FMX.Objects;
+  FMX.Objects, Generics.Collections;
 
 type
   TFrameVisual = class(TFrame)
@@ -44,6 +44,7 @@ type
     procedure btnHaidRailViewClick(Sender: TObject);
     procedure btnRoomViewClick(Sender: TObject);
   private
+    procedure ShowHide(Sender: TObject; list: TList<Integer>);
     { Private declarations }
 
   public
@@ -61,8 +62,8 @@ uses Main;
 
 procedure TFrameVisual.CreateLadder;
 begin
-  case MainForm.Project.ID of
-    0:
+  case MainForm.Project.typeLadder of
+    1:
       begin
         Ladder := TLadderLine.Create(ViewPort);
         Ladder.Parent := ViewPort;
@@ -73,98 +74,56 @@ begin
   ViewPort.Repaint;
 end;
 
-procedure TFrameVisual.btnHaidRailViewClick(Sender: TObject);
+procedure TFrameVisual.ShowHide(Sender: TObject; list: TList<Integer>);
 var
   i: Integer;
   IsVisible: Boolean;
 begin
-  IsVisible := (btnHaidRailView.Parent as TImage).Opacity = 1;
+  IsVisible := ((Sender as TSpeedButton).Parent as TImage).Opacity = 1;
   if IsVisible then
-    (btnHaidRailView.Parent as TImage).Opacity := 0.5
+    ((Sender as TSpeedButton).Parent as TImage).Opacity := 0.5
   else
-    (btnHaidRailView.Parent as TImage).Opacity := 1;
+    ((Sender as TSpeedButton).Parent as TImage).Opacity := 1;
 
   for i := 0 to Ladder.ChildrenCount - 1 do
   begin
-    if Ladder.Children[i].Tag in [teBaluster,teHandRail] then
-       (Ladder.Children[i] as TCube).Visible := NOT IsVisible
-  end;
-end;
-
-procedure TFrameVisual.btnRoomViewClick(Sender: TObject);
-var
-  i: Integer;
-  IsVisible: Boolean;
-begin
-  IsVisible := (btnRoomView.Parent as TImage).Opacity = 1;
-  if IsVisible then
-    (btnRoomView.Parent as TImage).Opacity := 0.5
-  else
-    (btnRoomView.Parent as TImage).Opacity := 1;
-
-  for i := 0 to Ladder.ChildrenCount - 1 do
-  begin
-    if Ladder.Children[i].Tag in [teFloor,teWall] then
-       (Ladder.Children[i] as TCube).Visible := NOT IsVisible
-  end;
-
-end;
-
-procedure TFrameVisual.btnStepViewClick(Sender: TObject);
-var
-  i: Integer;
-  IsVisible: Boolean;
-begin
-  IsVisible := (btnStepView.Parent as TImage).Opacity = 1;
-  if IsVisible then
-    (btnStepView.Parent as TImage).Opacity := 0.5
-  else
-    (btnStepView.Parent as TImage).Opacity := 1;
-
-  for i := 0 to Ladder.ChildrenCount - 1 do
-  begin
-    if Ladder.Children[i].Tag = teStep then
+    if list.IndexOf(Ladder.Children[i].Tag) >= 0 then
       if (Ladder.Children[i] is TPath3D) then
         (Ladder.Children[i] as TPath3D).Visible := NOT IsVisible
       else
         (Ladder.Children[i] as TCube).Visible := NOT IsVisible
   end;
+
 end;
 
+// Показать/ скрыть Поручень
+procedure TFrameVisual.btnHaidRailViewClick(Sender: TObject);
+begin
+  ShowHide(Sender, TList<Integer>.Create([teBaluster, teHandRail]));
+end;
+
+// Показать/ скрыть Комнату
+procedure TFrameVisual.btnRoomViewClick(Sender: TObject);
+begin
+  ShowHide(Sender, TList<Integer>.Create([teFloor, teWall]));
+end;
+
+// Показать/ скрыть Ступени
+procedure TFrameVisual.btnStepViewClick(Sender: TObject);
+begin
+  ShowHide(Sender, TList<Integer>.Create([teStep]));
+end;
+
+// Показать/ скрыть Тетивы
 procedure TFrameVisual.btnStringerViewClick(Sender: TObject);
-var
-  i: Integer;
-  IsVisible: Boolean;
 begin
-  IsVisible := (btnStringerView.Parent as TImage).Opacity = 1;
-  if IsVisible then
-    (btnStringerView.Parent as TImage).Opacity := 0.5
-  else
-    (btnStringerView.Parent as TImage).Opacity := 1;
-
-  for i := 0 to Ladder.ChildrenCount - 1 do
-  begin
-    if Ladder.Children[i].Tag = teStringer then
-      (Ladder.Children[i] as TPath3D).Visible := NOT IsVisible;
-  end;
+  ShowHide(Sender, TList<Integer>.Create([teStringer]));
 end;
 
+// Показать/ скрыть Подступни
 procedure TFrameVisual.btnUnderStepViewClick(Sender: TObject);
-var
-  i: Integer;
-  IsVisible: Boolean;
 begin
-  IsVisible := (btnUnderStepView.Parent as TImage).Opacity = 1;
-  if IsVisible then
-    (btnUnderStepView.Parent as TImage).Opacity := 0.5
-  else
-    (btnUnderStepView.Parent as TImage).Opacity := 1;
-
-  for i := 0 to Ladder.ChildrenCount - 1 do
-  begin
-    if Ladder.Children[i].Tag = teUnderStep then
-       (Ladder.Children[i] as TCube).Visible := NOT IsVisible
-  end;
+  ShowHide(Sender, TList<Integer>.Create([teUnderStep]));
 end;
 
 procedure TFrameVisual.ViewPortMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);

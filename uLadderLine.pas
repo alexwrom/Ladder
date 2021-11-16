@@ -56,31 +56,56 @@ begin
 end;
 
 procedure TLadderLine.loadConfiguration;
+var
+  I: integer;
 begin
-  // Load data from database with ID = MainForm.Project.ID
 
-  typeLadder := tlLeft;
+  ExeActive('select * from input_data where project_id = ' + MainForm.Project.ID.ToString);
+  tmpQuery.First;
+  while NOT tmpQuery.Eof do
+    with tmpQuery do
+    begin
+      if FieldByName('input_key').AsString = 'tlLeft' then
+        if FieldByName('value').AsBoolean then
+          typeLadder := tlLeft
+        else
+          typeLadder := tlRight;
 
-  placeHeight := 3000 / cScale;
-  placeWidth := 4500 / cScale;
-  widthLadder := 1000 / cScale;
+      if FieldByName('input_key').AsString = 'plHeight' then
+        placeHeight := FieldByName('value').AsInteger / cScale;
+      if FieldByName('input_key').AsString = 'plWidth' then
+        placeWidth := FieldByName('value').AsInteger / cScale;
+      if FieldByName('input_key').AsString = 'ldWidth' then
+        widthLadder := FieldByName('value').AsInteger / cScale;
 
-  stepCount := 16;
-  stepTickness := 40 / cScale;
-  stepLedge := 50 / cScale;
+      if FieldByName('input_key').AsString = 'stCount' then
+        stepCount := FieldByName('value').AsInteger;
+      if FieldByName('input_key').AsString = 'stTick' then
+        stepTickness := FieldByName('value').AsInteger / cScale;
+      if FieldByName('input_key').AsString = 'stLedge' then
+        stepLedge := FieldByName('value').AsInteger / cScale;
 
-  isTopStepBelow := false;
+      if FieldByName('input_key').AsString = 'stTopStep' then
+        isTopStepBelow := FieldByName('value').AsBoolean;
+      if FieldByName('input_key').AsString = 'strTick' then
+        stringerTickness := FieldByName('value').AsInteger / cScale;
+      if FieldByName('input_key').AsString = 'strWidth' then
+        stringerWidth := FieldByName('value').AsInteger / cScale;
+      if FieldByName('input_key').AsString = 'undIs' then
+        isVisibleUnderStep := FieldByName('value').AsBoolean;
+      if FieldByName('input_key').AsString = 'undTick' then
+        underStepTickness := FieldByName('value').AsInteger / cScale;
 
-  stringerTickness := 60 / cScale;
-  stringerWidth := 300 / cScale;
-
-  isVisibleUnderStep := true;
-  underStepTickness := 25 / cScale;
-
-  handrailHeight := 900 / cScale;
-  handrailWidth := 80 / cScale;
-  handrailTickness := 40 / cScale;
-  balusterRadius := 50 / cScale;
+      if FieldByName('input_key').AsString = 'handHeight' then
+        handrailHeight := FieldByName('value').AsInteger / cScale;
+      if FieldByName('input_key').AsString = 'handWidth' then
+        handrailWidth := FieldByName('value').AsInteger / cScale;
+      if FieldByName('input_key').AsString = 'handTick' then
+        handrailTickness := FieldByName('value').AsInteger / cScale;
+      if FieldByName('input_key').AsString = 'balWidth' then
+        balusterRadius := FieldByName('value').AsInteger / cScale;
+      Next;
+    end;
 
 end;
 
@@ -307,7 +332,10 @@ begin
     Width := placeWidth / Cos(alpha * PI / 180);
     Height := handrailTickness;
     Depth := handrailWidth;
-    Position.Y := -handrailHeight - balusterRadius * Tangent(alpha * PI / 180) - handrailTickness / 2;
+    if NOT isTopStepBelow then
+      Position.Y := -handrailHeight - heightStep / 2 +  balusterRadius * Tangent(alpha * PI / 180)
+    else
+      Position.Y := -handrailHeight +  balusterRadius * Tangent(alpha * PI / 180);
     Position.Z := -widthLadder / 2 + handrailTickness / 2;
     RotationAngle.Z := typeLadder * (alpha);
 

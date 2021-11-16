@@ -7,7 +7,7 @@ object frameNewProject: TframeNewProject
     Size.Width = 457.000000000000000000
     Size.Height = 48.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 4
+    TabOrder = 3
     TintColor = claSkyblue
     object ShadowEffect1: TShadowEffect
       Distance = 3.000000000000000000
@@ -1025,7 +1025,7 @@ object frameNewProject: TframeNewProject
           Size.Height = 130.000000000000000000
           Size.PlatformDefault = False
         end
-        object CornerButton1: TCornerButton
+        object btnLadderLine: TCornerButton
           Tag = 1
           Align = Client
           StyledSettings = [Family, Style]

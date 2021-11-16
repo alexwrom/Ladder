@@ -1,10 +1,11 @@
 unit uLibrary;
 
 interface
-
+  uses FireDAC.Comp.Client;
 type
   rProject = record // Project data record
     ID: integer;
+    typeLadder: integer;
   end;
 
   // ----------------------------------Constants-----------------------------------------
@@ -31,10 +32,57 @@ const
   tcRadio = 2;
   tcEdit = 3;
   tcCheck = 4;
+  tcNumber = 5;
 
+ var
+  tmpQuery: TFDQuery;
+procedure ExeSQL(SQL: string);
+procedure ExeActive(SQL: string);
+procedure MyFreeAndNil(var Obj);
 function GetMessageText(Code: integer): string;
 
 implementation
+uses Main;
+
+procedure ExeActive(SQL: string);
+
+begin
+  if tmpQuery = nil then
+  begin
+    tmpQuery := TFDQuery.Create(nil);
+    tmpQuery.Connection := MainForm.Conn;
+  end;
+  tmpQuery.Active := false;
+  tmpQuery.SQL.clear;
+  tmpQuery.SQL.Add(SQL);
+  tmpQuery.Active := true;
+end;
+
+procedure ExeSQL(SQL: string);
+var
+  tmpQuery: TFDQuery;
+begin
+  tmpQuery := TFDQuery.Create(nil);
+  tmpQuery.Connection := MainForm.Conn;
+  tmpQuery.SQL.clear;
+  tmpQuery.SQL.Add(SQL);
+  tmpQuery.ExecSQL;
+  tmpQuery.Free;
+end;
+
+procedure MyFreeAndNil(var Obj);
+var
+  Temp: TObject;
+begin
+  Temp := TObject(Obj);
+
+  Pointer(Obj) := nil;
+{$IFDEF WINDOWS}
+  Temp.Free;
+{$ELSE IF}
+  Temp.DisposeOf;
+{$ENDIF}
+end;
 
 function GetMessageText(Code: integer): string;
 begin

@@ -12,7 +12,8 @@ uses
   FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef,
   FireDAC.Stan.ExprFuncs, FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.FMXUI.Wait,
   Data.DB, FireDAC.Comp.Client, IoUtils, FireDAC.Stan.Param, FireDAC.DatS,
-  FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet,uFrameInputData;
+  FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet,uFrameInputData,
+  FMX.Edit;
 
 type
 
@@ -27,15 +28,12 @@ type
 
     { Private declarations }
   public
-    tmpQuery: TFDQuery;
     frameProjects: TframeProjects;
     frameNewProject: TframeNewProject;
     frameVisual: TFrameVisual;
     frameStartProject: TFrameStartProject;
     frameInputData: TFrameInputData;
     Project: rProject; // Project data
-    procedure ExeSQL(SQL: string);
-    procedure ExeActive(SQL: string);
   end;
 
 var
@@ -45,36 +43,9 @@ implementation
 
 {$R *.fmx}
 
-procedure TMainForm.ExeActive(SQL: string);
-
-begin
-  if tmpQuery = nil then
-  begin
-    tmpQuery := TFDQuery.Create(nil);
-    tmpQuery.Connection := Conn;
-  end;
-  tmpQuery.Active := false;
-  tmpQuery.SQL.clear;
-  tmpQuery.SQL.Add(SQL);
-  tmpQuery.Active := true;
-end;
-
-procedure TMainForm.ExeSQL(SQL: string);
-var
-  tmpQuery: TFDQuery;
-begin
-  tmpQuery := TFDQuery.Create(nil);
-  tmpQuery.Connection := Conn;
-  tmpQuery.SQL.clear;
-  tmpQuery.SQL.Add(SQL);
-  tmpQuery.ExecSQL;
-  tmpQuery.Free;
-end;
-
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
-  frameProjects := TframeProjects.Create(self);
-  frameProjects.Parent := self;
+  
   Conn.Connected := false;
 
 {$IFDEF ANDROID}
@@ -87,6 +58,9 @@ begin
   except
     ShowMessage(GetMessageText(23));
   end;
+
+  frameProjects := TframeProjects.Create(self);
+  frameProjects.Parent := self;
 end;
 
 end.

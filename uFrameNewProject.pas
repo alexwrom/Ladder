@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client,uFrameInputData;
+  FireDAC.Comp.Client,uFrameInputData,uLibrary;
 
 type
   TframeNewProject = class(TFrame)
@@ -21,7 +21,7 @@ type
     GridLayout: TGridLayout;
     layLadder1: TLayout;
     Label1: TLabel;
-    CornerButton1: TCornerButton;
+    btnLadderLine: TCornerButton;
     Layout2: TLayout;
     Label3: TLabel;
     Image1: TImage;
@@ -72,15 +72,12 @@ uses Main;
 
 procedure TframeNewProject.btnNextClick(Sender: TObject);
 begin
-   MainForm.Project.ID := (recSelType.Parent as TCornerButton).Tag;
+   MainForm.Project.ID := 0;
+   MainForm.Project.typeLadder := (recSelType.Parent as TCornerButton).Tag;
 
     MainForm.frameInputData := TFrameInputData.Create(MainForm);
     MainForm.frameInputData.Parent := MainForm;
-    MainForm.frameNewProject.Parent := nil;
-    MainForm.frameNewProject.Free;
-   //MainForm.ExeSQL('insert into input_data (project_id,input_name,input_type,input_group,input_data) '+
-   //'select '+MainForm.pr+' from input_data where default_type = ' + (recSelType.Parent as TCornerButton).Tag.ToString);
-
+    MyFreeAndNil(MainForm.frameNewProject);
 end;
 
 procedure TframeNewProject.OnSelTypeProject(Sender: TObject);
