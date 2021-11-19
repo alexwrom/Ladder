@@ -50,8 +50,10 @@ begin
 
 {$IFDEF ANDROID}
   Conn.Params.Values['Database'] := IoUtils.TPath.Combine(IoUtils.TPath.GetDocumentsPath, 'base.db');
+  self.FullScreen := true;
 {$ELSE}
   Conn.Params.Database := ExtractFilePath(paramstr(0)) + '\base.db';
+
 {$ENDIF}
   try
     Conn.Connected := true;

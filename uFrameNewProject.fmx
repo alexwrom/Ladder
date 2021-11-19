@@ -1,53 +1,17 @@
 object frameNewProject: TframeNewProject
   Align = Client
-  Size.Width = 457.000000000000000000
-  Size.Height = 559.000000000000000000
+  Size.Width = 458.000000000000000000
+  Size.Height = 686.000000000000000000
   Size.PlatformDefault = False
-  object ToolBar: TToolBar
-    Size.Width = 457.000000000000000000
-    Size.Height = 48.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 3
-    TintColor = claSkyblue
-    object ShadowEffect1: TShadowEffect
-      Distance = 3.000000000000000000
-      Direction = 45.000000000000000000
-      Softness = 0.300000011920929000
-      Opacity = 0.600000023841857900
-      ShadowColor = claBlack
-    end
-    object Label2: TLabel
-      Align = Contents
-      StyledSettings = [Family, Style, FontColor]
-      Margins.Left = 48.000000000000000000
-      Margins.Right = 48.000000000000000000
-      Size.Width = 361.000000000000000000
-      Size.Height = 48.000000000000000000
-      Size.PlatformDefault = False
-      TextSettings.Font.Size = 13.000000000000000000
-      TextSettings.HorzAlign = Center
-      Text = 'New project'
-      TabOrder = 1
-    end
-    object btnBack: TSpeedButton
-      Align = Left
-      IconTintColor = claSteelblue
-      Size.Width = 48.000000000000000000
-      Size.Height = 48.000000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'drawertoolbutton'
-      Text = 'btnBack'
-    end
-  end
   object VertScrollBox1: TVertScrollBox
     Align = Client
-    Size.Width = 457.000000000000000000
-    Size.Height = 461.000000000000000000
+    Size.Width = 458.000000000000000000
+    Size.Height = 588.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 2
     ShowScrollBars = False
-    Viewport.Width = 457.000000000000000000
-    Viewport.Height = 461.000000000000000000
+    Viewport.Width = 458.000000000000000000
+    Viewport.Height = 588.000000000000000000
     object GridLayout: TGridLayout
       Align = MostTop
       ItemHeight = 180.000000000000000000
@@ -1029,6 +993,7 @@ object frameNewProject: TframeNewProject
           Tag = 1
           Align = Client
           StyledSettings = [Family, Style]
+          Opacity = 0.800000011920929000
           Margins.Left = 2.000000000000000000
           Margins.Top = 2.000000000000000000
           Margins.Right = 2.000000000000000000
@@ -1059,12 +1024,13 @@ object frameNewProject: TframeNewProject
         object Label1: TLabel
           Align = Bottom
           AutoTranslate = False
-          StyledSettings = [Family, Style, FontColor]
+          StyledSettings = [Family, Style]
           Position.Y = 140.000000000000000000
           Size.Width = 140.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 11.000000000000000000
+          TextSettings.FontColor = claBrown
           TextSettings.HorzAlign = Center
           Text = #1055#1088#1103#1084#1072#1103' '#1085#1072' '#1082#1086#1089#1086#1091#1088#1072#1093
           TabOrder = 0
@@ -2018,6 +1984,7 @@ object frameNewProject: TframeNewProject
           Tag = 2
           Align = Client
           StyledSettings = [Family, Style]
+          Opacity = 0.800000011920929000
           Margins.Left = 2.000000000000000000
           Margins.Top = 2.000000000000000000
           Margins.Right = 2.000000000000000000
@@ -2036,12 +2003,13 @@ object frameNewProject: TframeNewProject
         object Label4: TLabel
           Align = Bottom
           AutoTranslate = False
-          StyledSettings = [Family, Style, FontColor]
+          StyledSettings = [Family, Style]
           Position.Y = 140.000000000000000000
           Size.Width = 140.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 11.000000000000000000
+          TextSettings.FontColor = claBrown
           TextSettings.HorzAlign = Center
           Text = #1055#1088#1103#1084#1072#1103' '#1085#1072' '#1090#1077#1090#1080#1074#1072#1093
           TabOrder = 0
@@ -2588,6 +2556,7 @@ object frameNewProject: TframeNewProject
           Tag = 3
           Align = Client
           StyledSettings = [Family, Style]
+          Opacity = 0.800000011920929000
           Margins.Left = 2.000000000000000000
           Margins.Top = 2.000000000000000000
           Margins.Right = 2.000000000000000000
@@ -2606,12 +2575,13 @@ object frameNewProject: TframeNewProject
         object Label5: TLabel
           Align = Bottom
           AutoTranslate = False
-          StyledSettings = [Family, Style, FontColor]
+          StyledSettings = [Family, Style]
           Position.Y = 140.000000000000000000
           Size.Width = 140.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 11.000000000000000000
+          TextSettings.FontColor = claBrown
           TextSettings.HorzAlign = Center
           Text = #1043'-'#1086#1073#1088#1072#1079#1085#1072#1103' '#1089' '#1087#1083#1086#1097#1072#1076#1082#1086#1081
           TabOrder = 0
@@ -3192,6 +3162,7 @@ object frameNewProject: TframeNewProject
           Tag = 4
           Align = Client
           StyledSettings = [Family, Style]
+          Opacity = 0.800000011920929000
           Margins.Left = 2.000000000000000000
           Margins.Top = 2.000000000000000000
           Margins.Right = 2.000000000000000000
@@ -3210,12 +3181,13 @@ object frameNewProject: TframeNewProject
         object Label6: TLabel
           Align = Bottom
           AutoTranslate = False
-          StyledSettings = [Family, Style, FontColor]
+          StyledSettings = [Family, Style]
           Position.Y = 140.000000000000000000
           Size.Width = 140.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 11.000000000000000000
+          TextSettings.FontColor = claBrown
           TextSettings.HorzAlign = Center
           Text = #1043'-'#1086#1073#1088#1072#1079#1085#1072#1103' '#1089' '#1079#1072#1073#1077#1078#1085#1099#1084#1080' '#1089#1090#1091#1087#1077#1085#1103#1084#1080
           TabOrder = 0
@@ -3791,6 +3763,7 @@ object frameNewProject: TframeNewProject
           Tag = 5
           Align = Client
           StyledSettings = [Family, Style]
+          Opacity = 0.800000011920929000
           Margins.Left = 2.000000000000000000
           Margins.Top = 2.000000000000000000
           Margins.Right = 2.000000000000000000
@@ -3809,12 +3782,13 @@ object frameNewProject: TframeNewProject
         object Label7: TLabel
           Align = Bottom
           AutoTranslate = False
-          StyledSettings = [Family, Style, FontColor]
+          StyledSettings = [Family, Style]
           Position.Y = 140.000000000000000000
           Size.Width = 140.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 11.000000000000000000
+          TextSettings.FontColor = claBrown
           TextSettings.HorzAlign = Center
           Text = #1055'-'#1086#1073#1088#1072#1079#1085#1072#1103' '#1089' '#1087#1083#1086#1097#1072#1076#1082#1086#1081
           TabOrder = 0
@@ -4411,6 +4385,7 @@ object frameNewProject: TframeNewProject
           Tag = 6
           Align = Client
           StyledSettings = [Family, Style]
+          Opacity = 0.800000011920929000
           Margins.Left = 2.000000000000000000
           Margins.Top = 2.000000000000000000
           Margins.Right = 2.000000000000000000
@@ -4429,12 +4404,13 @@ object frameNewProject: TframeNewProject
         object Label8: TLabel
           Align = Bottom
           AutoTranslate = False
-          StyledSettings = [Family, Style, FontColor]
+          StyledSettings = [Family, Style]
           Position.Y = 140.000000000000000000
           Size.Width = 140.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 11.000000000000000000
+          TextSettings.FontColor = claBrown
           TextSettings.HorzAlign = Center
           Text = #1055'-'#1086#1073#1088#1072#1079#1085#1072#1103' '#1089' '#1079#1072#1073#1077#1078#1085#1099#1084#1080' '#1089#1090#1091#1087#1077#1085#1103#1084#1080
           TabOrder = 0
@@ -5411,6 +5387,7 @@ object frameNewProject: TframeNewProject
           Tag = 7
           Align = Client
           StyledSettings = [Family, Style]
+          Opacity = 0.800000011920929000
           Margins.Left = 2.000000000000000000
           Margins.Top = 2.000000000000000000
           Margins.Right = 2.000000000000000000
@@ -5429,12 +5406,13 @@ object frameNewProject: TframeNewProject
         object Label9: TLabel
           Align = Bottom
           AutoTranslate = False
-          StyledSettings = [Family, Style, FontColor]
+          StyledSettings = [Family, Style]
           Position.Y = 140.000000000000000000
           Size.Width = 140.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 11.000000000000000000
+          TextSettings.FontColor = claBrown
           TextSettings.HorzAlign = Center
           Text = #1055'-'#1086#1073#1088#1072#1079#1085#1072#1103' '#1089' '#1087#1083#1086#1097#1072#1076#1082#1086#1081' ('#1090#1088#1077#1093#1084#1072#1088#1096#1077#1074#1072#1103')'
           TabOrder = 0
@@ -6434,6 +6412,7 @@ object frameNewProject: TframeNewProject
           Tag = 7
           Align = Client
           StyledSettings = [Family, Style]
+          Opacity = 0.800000011920929000
           Margins.Left = 2.000000000000000000
           Margins.Top = 2.000000000000000000
           Margins.Right = 2.000000000000000000
@@ -6452,12 +6431,13 @@ object frameNewProject: TframeNewProject
         object Label10: TLabel
           Align = Bottom
           AutoTranslate = False
-          StyledSettings = [Family, Style, FontColor]
+          StyledSettings = [Family, Style]
           Position.Y = 140.000000000000000000
           Size.Width = 140.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 11.000000000000000000
+          TextSettings.FontColor = claBrown
           TextSettings.HorzAlign = Center
           Text = #1055'-'#1086#1073#1088#1072#1079#1085#1072#1103' '#1089' '#1079#1072#1073#1077#1078#1085#1099#1084#1080' '#1089#1090#1091#1087#1077#1085#1103#1084#1080' ('#1090#1088#1077#1093#1084#1072#1088#1096#1077#1074#1072#1103')'
           TabOrder = 0
@@ -6466,11 +6446,12 @@ object frameNewProject: TframeNewProject
     end
     object Label3: TLabel
       Align = MostTop
-      StyledSettings = [Family, Style, FontColor]
+      StyledSettings = [Family, Style]
       Size.Width = 457.000000000000000000
       Size.Height = 33.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.FontColor = claBrown
       TextSettings.HorzAlign = Center
       Text = 'Wood ladders'
       TabOrder = 1
@@ -6478,55 +6459,60 @@ object frameNewProject: TframeNewProject
   end
   object Layout2: TLayout
     Align = Bottom
-    Position.Y = 509.000000000000000000
-    Size.Width = 457.000000000000000000
+    Position.Y = 636.000000000000000000
+    Size.Width = 458.000000000000000000
     Size.Height = 50.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
-    object GridPanelLayout1: TGridPanelLayout
+    object btnNext: TSpeedButton
       Align = Client
-      Size.Width = 457.000000000000000000
+      Enabled = False
+      StyledSettings = [Family]
+      Size.Width = 458.000000000000000000
       Size.Height = 50.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 0
-      ColumnCollection = <
-        item
-          Value = 50.000000000000000000
-        end
-        item
-          Value = 50.000000000000000000
-        end>
-      ControlCollection = <
-        item
-          Column = 1
-          Control = btnNext
-          Row = 0
-        end
-        item
-          Column = 0
-          Control = btnCancel
-          Row = 0
-        end>
-      RowCollection = <
-        item
-          Value = 100.000000000000000000
-        end>
-      object btnNext: TSpeedButton
-        Align = Client
-        Size.Width = 228.500000000000000000
-        Size.Height = 50.000000000000000000
-        Size.PlatformDefault = False
-        Text = 'Next'
-        OnClick = btnNextClick
-      end
-      object btnCancel: TSpeedButton
-        Align = Client
-        Anchors = []
-        Size.Width = 228.500000000000000000
-        Size.Height = 50.000000000000000000
-        Size.PlatformDefault = False
-        Text = 'Cancel'
-      end
+      Text = 'Next'
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claBrown
+      OnClick = btnNextClick
+    end
+  end
+  object ToolBar: TToolBar
+    Size.Width = 458.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    TintColor = claDarkred
+    object ShadowEffect2: TShadowEffect
+      Distance = 3.000000000000000000
+      Direction = 45.000000000000000000
+      Softness = 0.300000011920929000
+      Opacity = 0.600000023841857900
+      ShadowColor = claBlack
+    end
+    object Label11: TLabel
+      Align = Contents
+      StyledSettings = [Family, Style]
+      Margins.Left = 48.000000000000000000
+      Margins.Right = 48.000000000000000000
+      Size.Width = 362.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 13.000000000000000000
+      TextSettings.FontColor = claWhite
+      TextSettings.HorzAlign = Center
+      Text = 'New project'
+      TabOrder = 1
+    end
+    object btnBack: TSpeedButton
+      Align = Left
+      IconTintColor = claWhite
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'backtoolbutton'
+      OnClick = btnBackClick
     end
   end
 end

@@ -8,14 +8,10 @@ uses
   FMX.Effects, FMX.Controls.Presentation, FMX.Viewport3D, uLadderLine,
   System.Math.Vectors, FMX.Controls3D, FMX.Objects3D, FMX.Types3D,
   FMX.MaterialSources, uLibrary, System.ImageList, FMX.ImgList, FMX.Layouts,
-  FMX.Objects, Generics.Collections;
+  FMX.Objects, Generics.Collections, FMX.Gestures;
 
 type
   TFrameVisual = class(TFrame)
-    ToolBar: TToolBar;
-    ShadowEffect1: TShadowEffect;
-    Label2: TLabel;
-    btnBack: TSpeedButton;
     ViewPort: TViewport3D;
     materialWood: TLightMaterialSource;
     materialMetal: TLightMaterialSource;
@@ -35,20 +31,32 @@ type
     btnStringerView: TSpeedButton;
     Image6: TImage;
     btnStepView: TSpeedButton;
-    procedure ViewPortMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-    procedure ViewPortMouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; var Handled: Boolean);
-    procedure ViewPortMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
+    GestureManager1: TGestureManager;
+    layMoveViewport: TLayout;
+    ToolBar: TToolBar;
+    ShadowEffect1: TShadowEffect;
+    Label2: TLabel;
+    btnBack: TSpeedButton;
+
     procedure btnStringerViewClick(Sender: TObject);
     procedure btnStepViewClick(Sender: TObject);
     procedure btnUnderStepViewClick(Sender: TObject);
     procedure btnHaidRailViewClick(Sender: TObject);
     procedure btnRoomViewClick(Sender: TObject);
+    procedure btnBackClick(Sender: TObject);
+    procedure layMoveViewportGesture(Sender: TObject; const EventInfo: TGestureEventInfo; var Handled: Boolean);
+    procedure layMoveViewportMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+    procedure layMoveViewportMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
+    procedure layMoveViewportMouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; var Handled: Boolean);
   private
+    FLastDistance: Integer;
+    DontRotate : boolean;
     procedure ShowHide(Sender: TObject; list: TList<Integer>);
     { Private declarations }
 
   public
     { Public declarations }
+    PriorForm: Integer;
     Ladder: TDummy;
     FDown: TPointF;
     procedure CreateLadder;
@@ -57,11 +65,13 @@ type
 
 implementation
 
-uses Main;
+uses Main, uFrameStartProject, uFrameInputData;
 {$R *.fmx}
 
 procedure TFrameVisual.CreateLadder;
 begin
+  DontRotate := false;
+  FLastDistance := 0;
   case MainForm.Project.typeLadder of
     1:
       begin
@@ -72,6 +82,58 @@ begin
   end;
   ViewPort.Multisample := TMultiSample.FourSamples;
   ViewPort.Repaint;
+  ViewPort.Align := TAlignLayout.Client;
+end;
+
+procedure TFrameVisual.layMoveViewportGesture(Sender: TObject; const EventInfo: TGestureEventInfo; var Handled: Boolean);
+begin
+  case EventInfo.GestureID of
+    igiZoom:
+      begin
+
+        if (not(TInteractiveGestureFlag.gfBegin in EventInfo.Flags)) and (not(TInteractiveGestureFlag.gfEnd in EventInfo.Flags)) then
+        begin
+          if (Camera.position.Z + (EventInfo.Distance - FLastDistance) / 10 <= -10) and (Camera.position.Z + (EventInfo.Distance - FLastDistance) / 10 >= -80) then
+          begin
+            Camera.position.Z := Camera.position.Z + (EventInfo.Distance - FLastDistance) / 10;
+          end;
+        end;
+        FLastDistance := EventInfo.Distance;
+        DontRotate := true;
+      end;
+  end;
+end;
+
+procedure TFrameVisual.layMoveViewportMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
+begin
+  FDown := PointF(X, Y);
+  DontRotate := false;
+end;
+
+procedure TFrameVisual.layMoveViewportMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
+begin
+  if (ssLeft in Shift) and (NOT DontRotate)then
+    if Ladder <> nil then
+    begin
+      with Ladder do
+      begin
+
+        DummyCamera.RotationAngle.X := DummyCamera.RotationAngle.X - (Y - FDown.Y) * cSpeed;
+        DummyCamera.RotationAngle.Y := DummyCamera.RotationAngle.Y + (X - FDown.X) * cSpeed;
+
+      end;
+      FDown := PointF(X, Y);
+
+    end;
+end;
+
+procedure TFrameVisual.layMoveViewportMouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; var Handled: Boolean);
+begin
+  if Camera <> nil then
+    if Camera.position.Z + WheelDelta / 100 <= -1 then
+    begin
+      Camera.position.Z := Camera.position.Z + WheelDelta / 100;
+    end;
 end;
 
 procedure TFrameVisual.ShowHide(Sender: TObject; list: TList<Integer>);
@@ -97,6 +159,25 @@ begin
 end;
 
 // Показать/ скрыть Поручень
+procedure TFrameVisual.btnBackClick(Sender: TObject);
+begin
+  case PriorForm of
+    pfAdd:
+      begin
+        MainForm.frameInputData := TFrameInputData.Create(MainForm);
+        MainForm.frameInputData.PriorForm := pfAdd;
+        MainForm.frameInputData.Parent := MainForm;
+      end;
+    pfEdit:
+      begin
+        MainForm.frameStartProject := TFrameStartProject.Create(MainForm);
+        MainForm.frameStartProject.Parent := MainForm;
+      end;
+  end;
+  MyFreeAndNil(Ladder);
+  MyFreeAndNil(MainForm.frameVisual);
+end;
+
 procedure TFrameVisual.btnHaidRailViewClick(Sender: TObject);
 begin
   ShowHide(Sender, TList<Integer>.Create([teBaluster, teHandRail]));
@@ -124,37 +205,6 @@ end;
 procedure TFrameVisual.btnUnderStepViewClick(Sender: TObject);
 begin
   ShowHide(Sender, TList<Integer>.Create([teUnderStep]));
-end;
-
-procedure TFrameVisual.ViewPortMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
-begin
-  FDown := PointF(X, Y);
-end;
-
-procedure TFrameVisual.ViewPortMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
-begin
-  if (ssLeft in Shift) then
-    if Ladder <> nil then // DummyCamera
-    begin
-      with Ladder do // DummyCamera
-      begin
-
-        DummyCamera.RotationAngle.X := DummyCamera.RotationAngle.X - (Y - FDown.Y) * cSpeed;
-        DummyCamera.RotationAngle.Y := DummyCamera.RotationAngle.Y + (X - FDown.X) * cSpeed;
-
-      end;
-      FDown := PointF(X, Y);
-
-    end;
-end;
-
-procedure TFrameVisual.ViewPortMouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: Integer; var Handled: Boolean);
-begin
-  if Camera <> nil then
-    if Camera.position.Z + WheelDelta / 100 <= -1 then
-    begin
-      Camera.position.Z := Camera.position.Z + WheelDelta / 100;
-    end;
 end;
 
 end.

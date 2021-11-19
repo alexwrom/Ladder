@@ -34,6 +34,9 @@ const
   tcCheck = 4;
   tcNumber = 5;
 
+  // -- PriorForm --
+  pfAdd = 0;
+  pfEdit = 1;
  var
   tmpQuery: TFDQuery;
 procedure ExeSQL(SQL: string);

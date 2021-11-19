@@ -34,8 +34,6 @@ type
     alpha: double;
     procedure loadConfiguration;
     procedure CreateLadder;
-    procedure MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single; RayPos, RayDeir: TVector3D);
-    procedure MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single; RayPos, RayDir: TVector3D);
     procedure CreateRoom;
   public
     constructor Create(AOwner: TComponent); override;
@@ -109,24 +107,6 @@ begin
 
 end;
 
-procedure TLadderLine.MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single; RayPos, RayDeir: TVector3D);
-begin
-  MainForm.frameVisual.FDown := PointF(X, Y);
-end;
-
-procedure TLadderLine.MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single; RayPos, RayDir: TVector3D);
-begin
-  if (ssLeft in Shift) then
-    if Self <> nil then
-    begin
-      with MainForm.frameVisual.DummyCamera do
-      begin
-        RotationAngle.X := RotationAngle.X - (Y - MainForm.frameVisual.FDown.Y) * cSpeed;
-        RotationAngle.Y := RotationAngle.Y + (X - MainForm.frameVisual.FDown.X) * cSpeed;
-      end;
-      MainForm.frameVisual.FDown := PointF(X, Y);
-    end;
-end;
 
 procedure TLadderLine.CreateRoom;
 begin
@@ -140,8 +120,6 @@ begin
     Position.Y := 0;
     Position.Z := widthLadder / 2 + 1 / 2;
     MaterialSource := MainForm.frameVisual.material—oncrete;
-    OnMouseDown := MouseDown;
-    OnMouseMove := MouseMove;
     Tag := teWall;
   end;
 
@@ -156,8 +134,6 @@ begin
     Position.Y := 0;
     Position.Z := 1 / 2;
     MaterialSource := MainForm.frameVisual.material—oncrete;
-    OnMouseDown := MouseDown;
-    OnMouseMove := MouseMove;
     RotationAngle.Y := 90;
     Tag := teWall;
   end;
@@ -173,8 +149,6 @@ begin
     Position.Y := placeHeight / 2 + 1 / 2;
     Position.Z := 1 / 2;
     MaterialSource := MainForm.frameVisual.material—oncrete;
-    OnMouseDown := MouseDown;
-    OnMouseMove := MouseMove;
     RotationAngle.X := 90;
     Tag := teFloor;
   end;
@@ -222,8 +196,6 @@ begin
       RotationAngle.Y := 90;
       MaterialSource := MainForm.frameVisual.materialWood;
       Visible := true;
-      OnMouseDown := MouseDown;
-      OnMouseMove := MouseMove;
       Tag := teStep;
     end;
     // UnderSteps
@@ -241,8 +213,6 @@ begin
         RotationAngle.Y := 90;
         MaterialSource := MainForm.frameVisual.materialWood;
         Visible := true;
-        OnMouseDown := MouseDown;
-        OnMouseMove := MouseMove;
         Tag := teUnderStep;
       end;
     end;
@@ -300,8 +270,6 @@ begin
       MaterialBackSource := MainForm.frameVisual.materialWood;
       MaterialShaftSource := MainForm.frameVisual.materialWood;
       Visible := true;
-      OnMouseDown := MouseDown;
-      OnMouseMove := MouseMove;
       Tag := teStringer;
     end;
   // Balusters
@@ -319,8 +287,6 @@ begin
       RotationAngle.Y := 90;
       MaterialSource := MainForm.frameVisual.materialWood;
       Visible := true;
-      OnMouseDown := MouseDown;
-      OnMouseMove := MouseMove;
       Tag := teBaluster;
     end;
   end;
@@ -338,9 +304,6 @@ begin
       Position.Y := -handrailHeight +  balusterRadius * Tangent(alpha * PI / 180);
     Position.Z := -widthLadder / 2 + handrailTickness / 2;
     RotationAngle.Z := typeLadder * (alpha);
-
-    OnMouseDown := MouseDown;
-    OnMouseMove := MouseMove;
     Tag := teHandRail;
   end;
 end;

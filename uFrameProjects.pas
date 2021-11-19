@@ -17,19 +17,19 @@ type
     Label1: TLabel;
     btnNewProject: TCornerButton;
     imgOk: TImageList;
-    ToolBar: TToolBar;
-    ShadowEffect1: TShadowEffect;
-    Label2: TLabel;
-    btnBack: TSpeedButton;
-    btnMenuClose: TSpeedButton;
     layEditDel: TLayout;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
     GestureManager: TGestureManager;
     bottomMenuEditDel: TRoundRect;
     Layout2: TLayout;
     animMenuEditDel: TFloatAnimation;
     ShadowEffect2: TShadowEffect;
+    ToolBar: TToolBar;
+    ShadowEffect3: TShadowEffect;
+    Label3: TLabel;
+    btnBack: TSpeedButton;
+    btnMenuClose: TSpeedButton;
+    btnEdit: TSpeedButton;
+    btnDel: TSpeedButton;
     procedure btnBackClick(Sender: TObject);
     procedure OnLongTap(Sender: TObject; const EventInfo: TGestureEventInfo; var Handled: Boolean);
     procedure btnMenuCloseClick(Sender: TObject);
@@ -74,9 +74,9 @@ begin
     StyledSettings := [];
     TextSettings.WordWrap := true;
     TextSettings.HorzAlign := TTextAlign(0);
-    TextSettings.FontColor := TAlphaColors.Black;
+    TextSettings.FontColor := TAlphaColors.Brown;
     TextSettings.Font.Size := 11;
-    Align := TAlignLayout(4);
+    Align := TAlignLayout.Bottom;
     Height := 30;
   end;
 
@@ -88,7 +88,7 @@ begin
     Margins.Bottom := 10;
     Margins.Left := 10;
     Margins.Right := 10;
-    MultiResBiTmap[0].BitMap.Assign(imgListLadders.Source[TypeIndex].MultiResBiTmap[0].BitMap);
+    MultiResBiTmap[0].BitMap.Assign(imgListLadders.Source[TypeIndex-1].MultiResBiTmap[0].BitMap);
     Align := TAlignLayout(9);
   end;
 
@@ -101,10 +101,12 @@ begin
     Margins.Bottom := 2;
     Margins.Left := 2;
     Margins.Right := 2;
+    Opacity := 0.8;
     Touch.GestureManager := GestureManager;
     Touch.InteractiveGestures := [TInteractiveGesture.LongTap];
     Tag := ID;
     ParentShowHint := false;
+    StyleName := nameProject;
     Hint:= TypeIndex.ToString;
     OnGesture := OnLongTap;
     OnClick := OnSelProject;
@@ -185,6 +187,7 @@ begin
     MainForm.Project.typeLadder := (Sender as TCornerButton).Hint.ToInteger;
     MainForm.frameStartProject := TFrameStartProject.Create(MainForm);
     MainForm.frameStartProject.Parent := MainForm;
+    MainForm.frameStartProject.labProjectNumber.Text := (Sender as TCornerButton).StyleName;
     MyFreeAndNil(MainForm.frameProjects);
   end;
 end;

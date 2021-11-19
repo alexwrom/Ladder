@@ -3,20 +3,16 @@ unit uFrameNewProject;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
   FMX.Effects, FMX.Controls.Presentation, FMX.Ani, FMX.Objects, FMX.Layouts,
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client,uFrameInputData,uLibrary;
+  FireDAC.Comp.Client, uFrameInputData, uLibrary;
 
 type
   TframeNewProject = class(TFrame)
-    ToolBar: TToolBar;
-    ShadowEffect1: TShadowEffect;
-    Label2: TLabel;
-    btnBack: TSpeedButton;
     VertScrollBox1: TVertScrollBox;
     GridLayout: TGridLayout;
     layLadder1: TLayout;
@@ -53,12 +49,15 @@ type
     Image8: TImage;
     CornerButton8: TCornerButton;
     Label10: TLabel;
-    GridPanelLayout1: TGridPanelLayout;
-    btnCancel: TSpeedButton;
     btnNext: TSpeedButton;
     recSelType: TRectangle;
+    ToolBar: TToolBar;
+    ShadowEffect2: TShadowEffect;
+    Label11: TLabel;
+    btnBack: TSpeedButton;
     procedure OnSelTypeProject(Sender: TObject);
     procedure btnNextClick(Sender: TObject);
+    procedure btnBackClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -67,23 +66,31 @@ type
 
 implementation
 
-uses Main;
+uses Main, uFrameProjects;
 {$R *.fmx}
+
+procedure TframeNewProject.btnBackClick(Sender: TObject);
+begin
+  MainForm.frameProjects := TFrameProjects.Create(MainForm);
+  MainForm.frameProjects.Parent := MainForm;
+  MyFreeAndNil(MainForm.frameNewProject);
+end;
 
 procedure TframeNewProject.btnNextClick(Sender: TObject);
 begin
-   MainForm.Project.ID := 0;
-   MainForm.Project.typeLadder := (recSelType.Parent as TCornerButton).Tag;
+  MainForm.Project.ID := 0;
+  MainForm.Project.typeLadder := (recSelType.Parent as TCornerButton).Tag;
 
-    MainForm.frameInputData := TFrameInputData.Create(MainForm);
-    MainForm.frameInputData.Parent := MainForm;
-    MyFreeAndNil(MainForm.frameNewProject);
+  MainForm.frameInputData := TFrameInputData.Create(MainForm);
+  MainForm.frameInputData.Parent := MainForm;
+  MyFreeAndNil(MainForm.frameNewProject);
 end;
 
 procedure TframeNewProject.OnSelTypeProject(Sender: TObject);
 begin
-    recSelType.Parent := Sender as TCornerButton;
-    recSelType.Visible := true;
+  recSelType.Parent := Sender as TCornerButton;
+  recSelType.Visible := true;
+  btnNext.Enabled := true;
 end;
 
 end.

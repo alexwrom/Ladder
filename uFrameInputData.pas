@@ -9,16 +9,15 @@ uses
 
 type
   TframeInputData = class(TFrame)
-    ToolBar: TToolBar;
-    ShadowEffect1: TShadowEffect;
-    Label2: TLabel;
-    btnBack: TSpeedButton;
     vertScroll: TVertScrollBox;
     Layout2: TLayout;
-    GridPanelLayout1: TGridPanelLayout;
     btnNext: TSpeedButton;
-    btnCancel: TSpeedButton;
+    ToolBar: TToolBar;
+    ShadowEffect2: TShadowEffect;
+    Label11: TLabel;
+    btnBack: TSpeedButton;
     procedure btnNextClick(Sender: TObject);
+    procedure btnBackClick(Sender: TObject);
   private
     procedure CreateGroupBox(TextName: string; Group: string);
     procedure CreateCheckBox(TextName, Key: string; DataValue: boolean; Group: string);
@@ -28,13 +27,14 @@ type
     procedure SaveDataToBase;
     { Private declarations }
   public
+    PriorForm: integer;
     constructor Create(AOwner: TComponent);
     { Public declarations }
   end;
 
 implementation
 
-uses Main;
+uses Main, uFrameNewProject, uFrameStartProject;
 {$R *.fmx}
 
 procedure TframeInputData.SaveDataToBase;
@@ -46,9 +46,10 @@ var
 begin
   if MainForm.Project.ID = 0 then
   begin
-    ExeSQL('insert into projects (project_name, project_type) values  (''Project'',' + MainForm.Project.typeLadder.ToString + ')');
+    ExeSQL('insert into projects (project_name, project_type) values  ('''',' + MainForm.Project.typeLadder.ToString + ')');
     ExeActive('select MAX(project_id) as id from projects');
     MainForm.Project.ID := tmpQuery.FieldByName('ID').AsInteger;
+    ExeSQL('update projects set project_name = ''Project # '' || project_id where project_id = ' + MainForm.Project.ID.ToString);
     ExeSQL('insert into input_data (input_key, project_id ,input_name,input_type, input_group,value, default_type,sort)' + ' select input_key,' + MainForm.Project.ID.ToString +
       ' ,input_name,input_type, input_group,value, default_type,sort from input_data where default_type = ' + MainForm.Project.typeLadder.ToString + ' and project_id = 0');
 
@@ -83,8 +84,35 @@ begin
         end;
 
         if Hint <> '' then
-          ExeSQL('update input_data set value = ''' + InKey + '''  where input_key = ''' + Hint + ''' and project_id = ' + MainForm.Project.ID.ToString );
+          ExeSQL('update input_data set value = ''' + InKey + '''  where input_key = ''' + Hint + ''' and project_id = ' + MainForm.Project.ID.ToString);
       end;
+end;
+
+procedure TframeInputData.btnBackClick(Sender: TObject);
+begin
+  MessageDlg('Введенные данные будут потеряны. Продолжить?', TMsgDlgType.mtWarning, mbYesNo, 0,
+    procedure(const AResult: TModalResult)
+    var
+      ID: integer;
+    begin
+      if (AResult = mrYes) then
+      begin
+        case PriorForm of
+          pfAdd:
+            begin
+              MainForm.frameNewProject := TframeNewProject.Create(MainForm);
+              MainForm.frameNewProject.Parent := MainForm;
+            end;
+          pfEdit:
+            begin
+              MainForm.frameStartProject := TFrameStartProject.Create(MainForm);
+              MainForm.frameStartProject.Parent := MainForm;
+            end;
+        end;
+
+        MyFreeAndNil(MainForm.frameInputData);
+      end;
+    end);
 end;
 
 procedure TframeInputData.btnNextClick(Sender: TObject);
@@ -92,6 +120,10 @@ begin
   SaveDataToBase;
   MainForm.frameVisual := TframeVisual.Create(MainForm);
   MainForm.frameVisual.Parent := MainForm;
+  if MainForm.Project.ID = 0 then
+    MainForm.frameVisual.PriorForm := pfAdd
+  else
+    MainForm.frameVisual.PriorForm := pfEdit;
   MainForm.frameVisual.CreateLadder;
   MyFreeAndNil(MainForm.frameInputData);
 end;
@@ -145,8 +177,10 @@ begin
     Padding.Bottom := 5;
     Padding.Left := 15;
     Padding.Right := 5;
-    TextSettings.Font.Size := 11;
+    TextSettings.Font.Size := 12;
+    TextSettings.Font.Style := [TFontStyle.fsBold];
     TextSettings.VertAlign := TTextAlign.Leading;
+    TextSettings.FontColor := TAlphaColors.Brown;
     Align := TAlignLayout.Top;
     ShowHint := false;
     Hint := Group;
@@ -162,7 +196,9 @@ begin
     Position.Y := self.Height;
     StyledSettings := [];
     Text := TextName;
-    TextSettings.Font.Size := 11;
+    TextSettings.Font.Size := 12;
+    TextSettings.FontColor := TAlphaColors.Brown;
+    Height := 30;
     isChecked := DataValue;
     GroupName := Group;
     Align := TAlignLayout.Top;
@@ -197,6 +233,8 @@ begin
     StyledSettings := [];
     Height := 15;
     Text := TextName + ':';
+    TextSettings.FontColor := TAlphaColors.Brown;
+    TextSettings.Font.Style := [TFontStyle.fsBold];
     TextSettings.Font.Size := 12;
     Align := TAlignLayout.Top;
     if Group <> '' then
@@ -222,6 +260,8 @@ begin
     Position.Y := self.Height;
     StyledSettings := [];
     TextSettings.Font.Size := 12;
+    KeyboardType := TVirtualKeyboardType.NumbersAndPunctuation;
+    TextSettings.FontColor := TAlphaColors.Brown;
     Align := TAlignLayout.Top;
     Margins.Right := 40;
     TextPrompt := '0 мм';
@@ -251,7 +291,8 @@ begin
     StyledSettings := [];
     Text := TextName;
     isChecked := DataValue;
-    TextSettings.Font.Size := 11;
+    TextSettings.Font.Size := 12;
+    TextSettings.FontColor := TAlphaColors.Brown;
     Align := TAlignLayout.Top;
     Height := 25;
     ShowHint := false;
@@ -289,6 +330,8 @@ begin
     Height := 15;
     Text := TextName + ':';
     TextSettings.Font.Size := 12;
+    TextSettings.Font.Style := [TFontStyle.fsBold];
+    TextSettings.FontColor := TAlphaColors.Brown;
     Align := TAlignLayout.Top;
     if Group <> '' then
       for I := 0 to vertScroll.Content.ChildrenCount - 1 do
@@ -313,6 +356,7 @@ begin
     Position.Y := self.Height;
     StyledSettings := [];
     TextSettings.Font.Size := 12;
+    TextSettings.FontColor := TAlphaColors.Brown;
     Align := TAlignLayout.Top;
     Margins.Right := 40;
     tmpSpin.Max := 30;
