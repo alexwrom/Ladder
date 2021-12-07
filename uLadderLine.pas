@@ -162,6 +162,8 @@ var
   heightStep: double;
   j: integer;
   w: double;
+  StringersHeight: single;
+  StringersWidth: single;
 begin
 
   if isVisibleUnderStep then
@@ -224,15 +226,17 @@ begin
       Parent := Self;
 
       if isVisibleUnderStep then
-        Width := placeWidth - stepLedge - underStepTickness
+        StringersWidth := placeWidth - stepLedge - underStepTickness
       else
-        Width := placeWidth - stepLedge;
+        StringersWidth := placeWidth - stepLedge;
 
       if isTopStepBelow then
-        Height := placeHeight - heightStep - stepTickness
+        StringersHeight := placeHeight - heightStep - stepTickness
       else
-        Height := placeHeight - stepTickness;
+        StringersHeight := placeHeight - stepTickness;
 
+      Width :=Stringerswidth;
+      Height := StringersHeight;
       Depth := stringerTickness;
       Path.Data := 'm0,0 ';
 
@@ -306,6 +310,12 @@ begin
     RotationAngle.Z := typeLadder * (alpha);
     Tag := teHandRail;
   end;
+  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%d)',[MainForm.Project.ID,'StepDepth',depthStep]));
+  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%d)',[MainForm.Project.ID,'Step',Step]));
+  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%d)',[MainForm.Project.ID,'HeightStep',heightStep]));
+  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%d)',[MainForm.Project.ID,'Angle',alpha]));
+  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%d)',[MainForm.Project.ID,'StringersWidth',StringersWidth]));
+  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%d)',[MainForm.Project.ID,'StringersHeight',StringersHeight]));
 end;
 
 end.

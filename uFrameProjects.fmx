@@ -69,7 +69,7 @@ object frameProjects: TframeProjects
     end
     object Layout2: TLayout
       Align = Bottom
-      Position.Y = 459.000000000000000000
+      Position.Y = 458.000000000000000000
       Size.Width = 372.000000000000000000
       Size.Height = 48.000000000000000000
       Size.PlatformDefault = False

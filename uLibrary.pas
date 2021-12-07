@@ -1,7 +1,9 @@
 unit uLibrary;
 
 interface
-  uses FireDAC.Comp.Client;
+
+uses FireDAC.Comp.Client;
+
 type
   rProject = record // Project data record
     ID: integer;
@@ -37,14 +39,17 @@ const
   // -- PriorForm --
   pfAdd = 0;
   pfEdit = 1;
- var
+
+var
   tmpQuery: TFDQuery;
+  // -------------------------------------- Procedures ----------------------------------
 procedure ExeSQL(SQL: string);
 procedure ExeActive(SQL: string);
 procedure MyFreeAndNil(var Obj);
 function GetMessageText(Code: integer): string;
 
 implementation
+
 uses Main;
 
 procedure ExeActive(SQL: string);

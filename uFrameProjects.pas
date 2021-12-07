@@ -36,7 +36,7 @@ type
     procedure animMenuEditDelFinish(Sender: TObject);
     procedure btnNewProjectClick(Sender: TObject);
   private
-    procedure CreateNewProjectElement(nameProject: string; ID, TypeIndex: integer; IsCalc, IsReport: integer);
+    procedure CreateNewProjectElement(nameProject: string; ID, TypeIndex: integer);
     procedure OnSelProject(Sender: TObject);
 
     { Private declarations }
@@ -51,7 +51,7 @@ uses Main;
 
 {$R *.fmx}
 
-procedure TframeProjects.CreateNewProjectElement(nameProject: string; ID, TypeIndex: integer; IsCalc, IsReport: integer);
+procedure TframeProjects.CreateNewProjectElement(nameProject: string; ID, TypeIndex: integer);
 var
   tmpLay: TLayout;
   tmpBtn: TCornerButton;
@@ -111,46 +111,6 @@ begin
     OnGesture := OnLongTap;
     OnClick := OnSelProject;
   end;
-
-  tmpLay := TLayout.Create(self);
-  with tmpLay do
-  begin
-    Parent := tmpBtn;
-    Margins.Top := 10;
-    Margins.Bottom := 10;
-    Margins.Left := 10;
-    Margins.Right := 10;
-    Align := TAlignLayout(4);
-    Height := 24;
-  end;
-
-  with TImage.Create(self) do // Расчитан
-  begin
-    Parent := tmpLay;
-    WrapMode := TImageWrapMode(2);
-    MultiResBiTmap[0].BitMap.Assign(imgOk.Source[IsCalc].MultiResBiTmap[0].BitMap);
-    Align := TAlignLayout(3);
-    Width := 20;
-    Margins.Top := 2;
-    Margins.Bottom := 2;
-    Margins.Left := 2;
-    Margins.Right := 2;
-
-  end;
-
-  with TImage.Create(self) do // Есть отчет
-  begin
-    Parent := tmpLay;
-    WrapMode := TImageWrapMode(2);
-    MultiResBiTmap[0].BitMap.Assign(imgOk.Source[IsReport].MultiResBiTmap[0].BitMap);
-    Align := TAlignLayout(3);
-    Width := 20;
-    Margins.Top := 2;
-    Margins.Bottom := 2;
-    Margins.Left := 2;
-    Margins.Right := 2;
-  end;
-
   GridLayout.Height := Round((GridLayout.ItemWidth * GridLayout.ChildrenCount) / GridLayout.Width) * GridLayout.ItemHeight;
 end;
 
@@ -214,7 +174,7 @@ begin
   while NOT tmpQuery.Eof do
     with tmpQuery do
     begin
-      CreateNewProjectElement(FieldByName('project_name').AsString, FieldByName('project_id').AsInteger, FieldByName('project_type').AsInteger, FieldByName('is_calc').AsInteger, FieldByName('is_visual').AsInteger);
+      CreateNewProjectElement(FieldByName('project_name').AsString, FieldByName('project_id').AsInteger, FieldByName('project_type').AsInteger);
       Next;
     end;
   MyFreeAndNil(tmpQuery);

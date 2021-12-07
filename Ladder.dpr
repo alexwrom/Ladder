@@ -10,7 +10,9 @@ uses
   uLibrary in 'uLibrary.pas',
   uFrameStartProject in 'uFrameStartProject.pas' {FrameStartProject: TFrame},
   uFrameNewProject in 'uFrameNewProject.pas' {frameNewProject: TFrame},
-  uFrameInputData in 'uFrameInputData.pas' {frameInputData: TFrame};
+  uFrameInputData in 'uFrameInputData.pas' {frameInputData: TFrame},
+  uFrameDrawing in 'uFrameDrawing.pas' {FrameDrawing: TFrame},
+  uLadderLineCalc in 'uLadderLineCalc.pas';
 
 {$R *.res}
 
