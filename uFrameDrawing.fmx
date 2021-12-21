@@ -14,8 +14,8 @@ object FrameDrawing: TFrameDrawing
     DefaultItemStyles.GroupHeaderStyle = ''
     DefaultItemStyles.GroupFooterStyle = ''
     ShowCheckboxes = True
-    Viewport.Width = 457.000000000000000000
-    Viewport.Height = 601.000000000000000000
+    Viewport.Width = 453.000000000000000000
+    Viewport.Height = 597.000000000000000000
   end
   object ToolBar: TToolBar
     Size.Width = 457.000000000000000000

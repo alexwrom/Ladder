@@ -310,12 +310,12 @@ begin
     RotationAngle.Z := typeLadder * (alpha);
     Tag := teHandRail;
   end;
-  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%d)',[MainForm.Project.ID,'StepDepth',depthStep]));
-  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%d)',[MainForm.Project.ID,'Step',Step]));
-  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%d)',[MainForm.Project.ID,'HeightStep',heightStep]));
-  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%d)',[MainForm.Project.ID,'Angle',alpha]));
-  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%d)',[MainForm.Project.ID,'StringersWidth',StringersWidth]));
-  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%d)',[MainForm.Project.ID,'StringersHeight',StringersHeight]));
+  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%s)',[MainForm.Project.ID,'StepDepth',StringReplace((depthStep * cScale).ToString,',','.',[rfReplaceAll])]));
+  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%s)',[MainForm.Project.ID,'Step',StringReplace((Step * cScale).ToString,',','.',[rfReplaceAll])]));
+  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%s)',[MainForm.Project.ID,'HeightStep',StringReplace((heightStep * cScale).ToString,',','.',[rfReplaceAll])]));
+  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%s)',[MainForm.Project.ID,'Angle',StringReplace((alpha).ToString,',','.',[rfReplaceAll])]));
+  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%s)',[MainForm.Project.ID,'StringersWidth',StringReplace((StringersWidth * cScale).ToString,',','.',[rfReplaceAll])]));
+  ExeSQL(Format('insert into data (project_id,data_name,data_value) values (%d,''%s'',%s)',[MainForm.Project.ID,'StringersHeight',StringReplace((StringersHeight * cScale).ToString,',','.',[rfReplaceAll])]));
 end;
 
 end.
